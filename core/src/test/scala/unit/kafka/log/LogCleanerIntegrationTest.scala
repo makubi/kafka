@@ -40,9 +40,8 @@ import scala.util.Random
  * This is an integration test that tests the fully integrated log cleaner
  */
 @RunWith(value = classOf[Parameterized])
-class LogCleanerIntegrationTest(compressionCodec: String) {
+class LogCleanerIntegrationTest(codec: CompressionType) {
 
-  val codec = CompressionType.forName(compressionCodec)
   val time = new MockTime()
   val segmentSize = 256
   val deleteDelay = 1000
@@ -339,10 +338,10 @@ class LogCleanerIntegrationTest(compressionCodec: String) {
 
 object LogCleanerIntegrationTest {
   @Parameters
-  def parameters: java.util.Collection[Array[String]] = {
-    val list = new java.util.ArrayList[Array[String]]()
+  def parameters: java.util.Collection[Array[CompressionType]] = {
+    val list = new java.util.ArrayList[Array[CompressionType]]()
     for (codec <- CompressionType.values)
-      list.add(Array(codec.name))
+      list.add(Array(codec))
     list
   }
 }

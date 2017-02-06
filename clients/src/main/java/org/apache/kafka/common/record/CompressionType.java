@@ -23,12 +23,18 @@ public enum CompressionType {
     NONE(0, "none", 1.0f), GZIP(1, "gzip", 0.5f), SNAPPY(2, "snappy", 0.5f), LZ4(3, "lz4", 0.5f);
 
     public final int id;
+    /**
+     * @deprecated Use {@link #configValue} instead.
+     */
+    @Deprecated
     public final String name;
+    public final String configValue;
     public final float rate;
 
-    CompressionType(int id, String name, float rate) {
+    CompressionType(int id, String configValue, float rate) {
         this.id = id;
-        this.name = name;
+        this.name = configValue;
+        this.configValue = configValue;
         this.rate = rate;
     }
 
@@ -47,6 +53,10 @@ public enum CompressionType {
         }
     }
 
+    /**
+     * @deprecated Use {@link #forConfigValue(String)} instead.
+     */
+    @Deprecated
     public static CompressionType forName(String name) {
         if (NONE.name.equals(name))
             return NONE;
@@ -58,6 +68,16 @@ public enum CompressionType {
             return LZ4;
         else
             throw new IllegalArgumentException("Unknown compression name: " + name);
+    }
+
+    public static CompressionType forConfigValue(String configValue) {
+        for (CompressionType c : values()) {
+            if (c.configValue.equals(configValue)) {
+                return c;
+            }
+        }
+
+        throw new IllegalArgumentException("Unknown compression config value: " + configValue);
     }
 
 }

@@ -654,7 +654,7 @@ class LogCleanerTest extends JUnitSuite {
     val codec = CompressionType.GZIP
 
     val logProps = new Properties()
-    logProps.put(LogConfig.CompressionTypeProp, codec.name)
+    logProps.put(LogConfig.CompressionTypeProp, codec.configValue)
     val logConfig = LogConfig(logProps)
 
     val log = makeLog(config = logConfig)

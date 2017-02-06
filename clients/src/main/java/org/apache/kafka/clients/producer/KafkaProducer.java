@@ -254,7 +254,7 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
             this.metadata = new Metadata(retryBackoffMs, config.getLong(ProducerConfig.METADATA_MAX_AGE_CONFIG), true, clusterResourceListeners);
             this.maxRequestSize = config.getInt(ProducerConfig.MAX_REQUEST_SIZE_CONFIG);
             this.totalMemorySize = config.getLong(ProducerConfig.BUFFER_MEMORY_CONFIG);
-            this.compressionType = CompressionType.forName(config.getString(ProducerConfig.COMPRESSION_TYPE_CONFIG));
+            this.compressionType = CompressionType.forConfigValue(config.getString(ProducerConfig.COMPRESSION_TYPE_CONFIG));
             /* check for user defined settings.
              * If the BLOCK_ON_BUFFER_FULL is set to true,we do not honor METADATA_FETCH_TIMEOUT_CONFIG.
              * This should be removed with release 0.9 when the deprecated configs are removed.

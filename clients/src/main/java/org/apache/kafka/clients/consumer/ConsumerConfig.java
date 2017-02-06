@@ -312,8 +312,8 @@ public class ConsumerConfig extends AbstractConfig {
                                         CommonClientConfigs.RETRY_BACKOFF_MS_DOC)
                                 .define(AUTO_OFFSET_RESET_CONFIG,
                                         Type.STRING,
-                                        "latest",
-                                        in("latest", "earliest", "none"),
+                                        OffsetResetStrategy.LATEST.configValue,
+                                        in(OffsetResetStrategy.configValues()),
                                         Importance.MEDIUM,
                                         AUTO_OFFSET_RESET_DOC)
                                 .define(CHECK_CRCS_CONFIG,

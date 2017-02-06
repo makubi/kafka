@@ -76,6 +76,6 @@ object BrokerCompressionTest {
   def parameters: Collection[Array[String]] = {
     (for (brokerCompression <- BrokerCompressionCodec.brokerCompressionOptions;
          messageCompression <- CompressionType.values
-    ) yield Array(messageCompression.name, brokerCompression)).asJava
+    ) yield Array(messageCompression.configValue, brokerCompression)).asJava
   }
 }

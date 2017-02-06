@@ -36,7 +36,7 @@ import scala.collection._
   * This is an integration test that tests the fully integrated log cleaner
   */
 @RunWith(value = classOf[Parameterized])
-class LogCleanerLagIntegrationTest(compressionCodecName: String) extends Logging {
+class LogCleanerLagIntegrationTest(compressionCodec: CompressionType) extends Logging {
   val msPerHour = 60 * 60 * 1000
 
   val compactionLag = 1 * msPerHour
@@ -50,7 +50,6 @@ class LogCleanerLagIntegrationTest(compressionCodecName: String) extends Logging
   val logDir = TestUtils.tempDir()
   var counter = 0
   val topics = Array(new TopicPartition("log", 0), new TopicPartition("log", 1), new TopicPartition("log", 2))
-  val compressionCodec = CompressionType.forName(compressionCodecName)
 
   @Test
   def cleanerTest(): Unit = {
@@ -166,17 +165,17 @@ class LogCleanerLagIntegrationTest(compressionCodecName: String) extends Logging
 }
 
 object LogCleanerLagIntegrationTest {
-  def oneParameter: java.util.Collection[Array[String]] = {
-    val l = new java.util.ArrayList[Array[String]]()
-    l.add(Array("NONE"))
+  def oneParameter: java.util.Collection[Array[CompressionType]] = {
+    val l = new java.util.ArrayList[Array[CompressionType]]()
+    l.add(Array(CompressionType.NONE))
     l
   }
 
   @Parameters
-  def parameters: java.util.Collection[Array[String]] = {
-    val list = new java.util.ArrayList[Array[String]]()
+  def parameters: java.util.Collection[Array[CompressionType]] = {
+    val list = new java.util.ArrayList[Array[CompressionType]]()
     for (codec <- CompressionType.values)
-      list.add(Array(codec.name))
+      list.add(Array(codec))
     list
   }
 }

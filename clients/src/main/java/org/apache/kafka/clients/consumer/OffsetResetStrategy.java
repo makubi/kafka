@@ -12,6 +12,28 @@
  */
 package org.apache.kafka.clients.consumer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum OffsetResetStrategy {
-    LATEST, EARLIEST, NONE
+    LATEST("latest"),
+    EARLIEST("earliest"),
+    NONE("none");
+
+    public String configValue;
+
+    OffsetResetStrategy(String configValue) {
+        this.configValue = configValue;
+    }
+
+    public static String[] configValues() {
+        final int numberOfValues = values().length;
+        final List<String> configValues = new ArrayList<>(numberOfValues);
+
+        for (OffsetResetStrategy o : values()) {
+            configValues.add(o.configValue);
+        }
+
+        return configValues.toArray(new String[numberOfValues]);
+    }
 }
